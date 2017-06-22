@@ -50,7 +50,8 @@ docker run -it \
 -e DISPLAY=unix$DISPLAY \          # Display
 --device /dev/snd \                # Sound
 --net host                         # Networking
--v <absolute location to the state folder>:/home/tribler/.Tribler \ # State folder
+-v $HOME/.Tribler:/home/tribler/.Tribler \ # State folder
+-v $HOME/Downloads:/home/tribler/TriblerDownloads \ # Download folder
 --name tribler \
 tribler/docker-tribler-prod
 ```
@@ -64,7 +65,8 @@ docker run -it \
 -e DISPLAY=unix$DISPLAY \          # Display
 --device /dev/snd \                # Sound
 --cpuset-cpus 0 \                  # CPU restriction
--v <absolute location to the state folder>:/home/tribler/.Tribler \ # State folder
+-v $HOME/.Tribler:/home/tribler/.Tribler \ # State folder
+-v $HOME/Downloads:/home/tribler/TriblerDownloads \ # Download folder
 --name tribler \
 tribler/docker-tribler-prod
 ```
@@ -78,7 +80,8 @@ docker run -it \
 -e DISPLAY=unix$DISPLAY \          # Display
 --device /dev/snd \                # Sound
 --memory 512mb \                   # Memory restriction
--v <absolute location to the state folder>:/home/tribler/.Tribler \ # State folder
+-v $HOME/.Tribler:/home/tribler/.Tribler \ # State folder
+-v $HOME/Downloads:/home/tribler/TriblerDownloads \ # Download folder
 --name tribler \
 tribler/docker-tribler-prod
 ```
