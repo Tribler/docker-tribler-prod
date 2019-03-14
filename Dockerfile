@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 LABEL MAINTAINER Mitchell Olsthoorn <mitchell.olsthoorn@outlook.com>
 
 # Make the GUI work in a container
@@ -11,42 +11,29 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python-setuptools \
     python-pip \
 # Tribler dependencies
-    libav-tools \
-    libsodium18 \
+    libsodium23 \
     libx11-6 \
     python2.7 \
-    python-apsw \
     python-chardet \
     python-cherrypy3 \
     python-configobj \
-    python-crypto \
     python-cryptography \
     python-decorator \
-    python-dnspython \
-    python-ecdsa \
-    python-feedparser \
-    python-jsonrpclib \
-    python-keyring \
-    python-keyrings.alt \
-    python-leveldb \
+    python-faulthandler \
     python-libnacl \
     python-libtorrent \
     python-matplotlib \
-    python-m2crypto \
+    python-meliae \
     python-netifaces \
     python-networkx \
-    python-pbkdf2 \
     python-pil \
-    python-protobuf \
-    python-pyasn1 \
     python-pyqt5 \
     python-pyqt5.qtsvg \
-    python-requests \
-    python-scipy \
-    python-socks \
+    python-psutil \
+    python-tk \
     python-twisted \
     vlc \
-    && pip install pyaes \
+    && pip install wheel && pip install pony lz4 \
 # Cleanup
     && apt-get remove -y \
     python-setuptools \
@@ -66,7 +53,7 @@ WORKDIR $HOME
 
 # Set building arguments
 ARG REPO_URL=https://github.com/Tribler/tribler.git
-ARG VERSION=next
+ARG VERSION=devel
 
 # Get code from the repository
 RUN git clone --recursive --depth 1 ${REPO_URL} -b ${VERSION} tribler

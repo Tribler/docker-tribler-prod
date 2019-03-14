@@ -96,7 +96,7 @@ docker build -t tribler/docker-tribler-prod \
 docker-tribler-prod
 ```
 
-### VERSION (Default: next)
+### VERSION (Default: devel)
 The VERSION env variable lets you change the specific version that is built during the packaging. This is handled by changing the branch of the repository. So in this way branches and tags can be selected.
 
 ```shell
