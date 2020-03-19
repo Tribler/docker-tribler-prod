@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 LABEL MAINTAINER Mitchell Olsthoorn <mitchell.olsthoorn@outlook.com>
 
 # Make the GUI work in a container
@@ -8,37 +8,52 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
 # Build depenedencies
     git \
-    python-setuptools \
-    python-pip \
-# Tribler dependencies
-    libsodium23 \
+    python3-setuptools \
+    python3-pip \
+    build-essential \
+    python3-dev \
+# Tribler dependencies (apt)
+    ffmpeg \
+    libssl-dev \
     libx11-6 \
-    python2.7 \
-    python-chardet \
-    python-cherrypy3 \
-    python-configobj \
-    python-cryptography \
-    python-decorator \
-    python-faulthandler \
-    python-libnacl \
-    python-libtorrent \
-    python-matplotlib \
-    python-meliae \
-    python-netifaces \
-    python-networkx \
-    python-pil \
-    python-pyqt5 \
-    python-pyqt5.qtsvg \
-    python-psutil \
-    python-tk \
-    python-twisted \
+    x11-utils \
     vlc \
-    && pip install wheel && pip install pony lz4 \
+    libgmp-dev \
+    python3 \
+    python3-minimal \
+    python3-pip \
+    python3-libtorrent \
+    python3-pyqt5 \
+    python3-pyqt5.qtsvg \
+    python3-scipy \
+# Tribler dependencies (pip)
+	&& pip3 install wheel \
+	&& pip3 install \
+	Pillow \
+	pyyaml \
+	bitcoinlib \
+	cryptography \
+	chardet \
+	configobj \
+	decorator \
+	dnspython \
+	ecdsa \
+	feedparser \
+	jsonrpclib \
+	matplotlib \
+	netifaces \
+	networkx \
+	pbkdf2 \
+	pony \
+	protobuf \
+	psutil \
+	pyaes \
+	pyasn1 \
+	pysocks \
+	requests \
+	lz4 \
+	pyqtgraph \
 # Cleanup
-    && apt-get remove -y \
-    python-setuptools \
-    python-pip \
-    && apt-get autoremove -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV HOME /home/tribler
@@ -58,6 +73,9 @@ ARG VERSION=devel
 # Get code from the repository
 RUN git clone --recursive --depth 1 ${REPO_URL} -b ${VERSION} tribler
 
+# Install IPv8 dependencies
+RUN cd tribler/src/pyipv8 && pip3 install --upgrade -r requirements.txt
+
 EXPOSE $API_PORT
 
-CMD ["/home/tribler/tribler/tribler.sh"]
+CMD ["/home/tribler/tribler/src/tribler.sh"]
